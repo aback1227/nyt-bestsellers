@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Nytimes::Bestsellers do
+describe NYTBestsellers::Book do
   it 'has a version number' do
     expect(Nytimes::Bestsellers::VERSION).not_to be nil
   end

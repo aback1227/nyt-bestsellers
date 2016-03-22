@@ -1,28 +1,14 @@
-# Nytimes::Bestsellers
+NYT Bestsellers
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/nytimes/bestsellers`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+View the New York Times bestsellers list with additional information.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'nytimes-bestsellers'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install nytimes-bestsellers
+Install this gem via `$ gem install nytimes-bestsellers`. Run the `nytimes-bestsellers` CLI to view the NYT bestsellers list.
 
 ## Usage
 
-TODO: Write usage instructions here
+Run: `nytimes-bestsellers` after install.
 
 ## Development
 

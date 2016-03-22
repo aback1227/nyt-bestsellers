@@ -1,5 +1,3 @@
-module Nytimes
-  module Bestsellers
+module NYTBestsellers
     VERSION = "0.1.0"
-  end
 end
