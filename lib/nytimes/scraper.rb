@@ -1,32 +1,23 @@
 require 'pry'
 class NYTBestsellers::Scraper
 
-	def self.scrape_categories
+	def self.bestsellers
 		array = Array.new
 		hash = Hash.new
-		hash[:categories] = Hash.new
 		doc = Nokogiri::HTML(open("http://www.nytimes.com/best-sellers-books/2016-03-27/overview.html"))
 		
-		categories = doc.css(".singleRule")
+		categories = doc.css(".bookCategory")
 		categories.each do |category|
-          hash[:categories] = category.css("h3 a").text
-          hash.each do |key, value|
-          	binding.pry
-          end
-          # hash[category.css("h3 a").text] = category.css("li b")
+          hash[category.css("h3 a").text] = {books:[]}
+       	  hash[category.css("h3 a").text][:books] = category.css("li b").text.split(",").flatten
 	    end
-
-		array << doc.css(".singleRule h2 a")[1].text.upcase
-
-		categories.each do |category|
-			array << category.text
-		end
-		array.delete_at(1)
-		array.delete_at(1)
-		# array.collect! { |string| string.split(" ").join("_").to_sym } #convert the categories from string to symbols
+	    hash.delete_if {|key, value| key.empty? || key == "COMBINED PRINT &AMP; E-BOOK FICTION" || key == "COMBINED PRINT &AMP; E-BOOK NONFICTION"}
 		
-		hash = Hash[array.collect{|category| [category, Hash.new]}]
-		hash
+		#for some reason it wouldn't let me do ("h2 a") in the above 'each' iterator
+		pb_non = doc.css(".story")[7]
+	    hash[pb_non.css("h2").text.upcase] = {books:[]}
+	    hash[pb_non.css("h2").text.upcase][:books] = pb_non.css("li b").text.split(",").flatten
+	   
 	end
 
 end
