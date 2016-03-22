@@ -1,0 +1,2 @@
+class NYTBestsellers::CLI
+end

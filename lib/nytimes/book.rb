@@ -1,0 +1,3 @@
+class NYTBestsellers::Book
+
+end

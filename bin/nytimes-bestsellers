@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/nytimes_bestsellers.rb'
+
+NYTBestsellers::CLI.new.call
