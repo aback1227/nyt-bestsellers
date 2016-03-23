@@ -2,4 +2,36 @@
 
 require_relative '../lib/nytimes_bestsellers.rb'
 
-NYTBestsellers::Scraper.scrape_categories
+# NYTBestsellers::Scraper.scrape_bestsellers_by_genre
+
+# [{:genre=>
+#    {"HARDCOVER FICTION"=>
+#      {:books=>
+#        ["OFF THE GRID",
+#         "FIRE TOUCHED",
+#         "ALL THE LIGHT WE CANNOT SEE",
+#         "THE GIRL ON THE TRAIN",
+#         "THE NIGHTINGALE"],
+#       :url=>"http://www.nytimes.com/best-sellers-books/2016-03-27/hardcover-fiction/list.html"}}},
+#  {:genre=>
+#    {"HARDCOVER NONFICTION"=>
+#      {:books=>
+#        ["WHEN BREATH BECOMES AIR",
+#         "BETWEEN THE WORLD AND ME",
+#         "DARK MONEY",
+#         "THE IMMORTAL IRISHMAN",
+#         "SEVEN BRIEF LESSONS ON PHYSICS"],
+#       :url=>"http://www.nytimes.com/best-sellers-books/2016-03-27/hardcover-nonfiction/list.html"}}},
+#  {:genre=>
+#    {"PAPERBACK TRADE FICTION"=>
+#      {:books=>["ME BEFORE YOU", "BROOKLYN", "ROOM", "THE REVENANT", "MY BRILLIANT FRIEND"],
+#       :url=>"http://www.nytimes.com/best-sellers-books/2016-03-27/trade-fiction-paperback/list.html"}}},
+#  {:genre=>
+#    {"PAPERBACK NONFICTION"=>
+#      {:books=>
+#        ["ALEXANDER HAMILTON", "I AM MALALA", "THE BOYS IN THE BOAT", "H IS FOR HAWK", "MIRACLES FROM HEAVEN"],
+#       :url=>["http://www.nytimes.com/best-sellers-books/2016-03-27/paperback-nonfiction/list.html"]}}}]
+
+NYTBestsellers::CLI.new.call
+
+
