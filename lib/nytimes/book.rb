@@ -27,15 +27,12 @@ class NYTBestsellers::Book
 		end
 	end
 
-	def self.find_by_title(title)
+	def self.find_by_title(name)
 	  self.all.find do |book| 
-	  	book.title == titles
+	  	if name == book.title
+	  	  book
+	  	end
 	  end
-	end
-
-	def genre=(genre)
-	  @genre = genre
-      @genre.books << self unless genre.books.include?(self)
 	end
 	
 end

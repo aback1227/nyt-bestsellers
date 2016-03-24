@@ -4,7 +4,7 @@ class NYTBestsellers::Scraper
 		array = Array.new
 		
 		doc = Nokogiri::HTML(open("http://www.nytimes.com/best-sellers-books/2016-03-27/overview.html"))
-		
+
 		categories = doc.css(".bookCategory")
 		categories.each do |category|
 		  h = Hash.new
@@ -27,8 +27,8 @@ class NYTBestsellers::Scraper
 
 	def self.scrape_book_attributes
 		array = Array.new
-
 		doc = Nokogiri::HTML(open("http://www.nytimes.com/best-sellers-books/2016-03-27/overview.html"))
+
 		categories = doc.css(".bookCategory")
 		categories.each do |category|
 		    books = category.css("li")
@@ -53,24 +53,36 @@ class NYTBestsellers::Scraper
 		end
 
 		NYTBestsellers::Genre.all.each do |genre|
-		info = Nokogiri::HTML(open(genre.url))
-		  details = info.css(".bookDetails")
+		details = Nokogiri::HTML(open(genre.url)).css(".bookDetails")
 		  details.each do |attribute|
 		  	array.each do |hash|
 		  	  	if hash[:title] == attribute.css(".bookName").text.gsub(", ", "").split.collect(&:capitalize).join(' ')
 		  	  	   hash[:publisher] = attribute.css(".summary").text.match(/\(.*\)/).to_s.gsub(/[(.)]/, "")
 		  	  	   hash[:summary] = attribute.css(".summary").text.match(/\).*\./).to_s.gsub(") ", "")
-		  	  	   if hash[:genre] == "Paperback Trade Fiction" || hash[:genre] == "Paperback Nonfiction"
-		  	  	   	  hash[:wol] = attribute.css(".weeklyPosition").text
-		  	  	   else
-		  	  	      hash[:wol] = attribute.css(".weeklyPosition")[1].text
-		  	  	   	end
+		  	  	if hash[:genre] == "Paperback Trade Fiction" || hash[:genre] == "Paperback Nonfiction"
+		  	  	   hash[:wol] = attribute.css(".weeklyPosition").text
+		  	    else
+		  	  	   hash[:wol] = attribute.css(".weeklyPosition")[1].text #other genres had two classes of the same name 'weeklyposition'
 		  	  	end
-		  	end
-	      end
+		  	    end
+		  	end #array
+	      end #details
 	    end
 	array
 	end #scrape_book_attributes
-	
 
-end
+	def self.scrape_price_rating
+
+		books = Nokogiri::HTML(open("http://www.amazon.com/Books/b/ref=sv_b_3?ie=UTF8&node=549028")).css("div .s9OtherItems")
+		array = self.scrape_book_attributes
+		array.collect do |hash|
+			if books.css(".a-row a").attr("title").text.include?(hash[:title])
+				binding.pry
+				hash[:url] = "www.amazon.com#{book.css(".a-row a").attr("href").text}"
+ 			end 
+		end
+	array
+	end
+
+end	
+

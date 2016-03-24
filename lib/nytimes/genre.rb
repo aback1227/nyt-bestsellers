@@ -39,9 +39,8 @@ class NYTBestsellers::Genre
 	  self.all.find {|x| x.name == genre_name}
 	end
 
-	# def self.find_by_num(num)
-	#   self.all
-	#   binding.pry
- # 	end
+	def self.find_by_num(num_input)
+	  self.all[num_input.to_i-1]
+ 	end
 
 end
