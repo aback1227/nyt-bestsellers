@@ -1,14 +1,24 @@
-require 'pry'
 class NYTBestsellers::Genre
 
-	attr_accessor :genre, :url, :books
+	attr_accessor :name, :url
 
 	@@all = []
 
 	def initialize(genres_hash)
-	  genres_hash.each {|key, value| self.send(("#{key}="), value)}
-	  @@all << self
 	  @books = []
+	  genres_hash.each do |key, value| 
+	  	if key == :books
+	  	  value.each do |title|
+	  	  	NYTBestsellers::Book.find_by_title(title)
+	  	  	@books << title
+	  	  end
+	  	elsif key == :genre
+	  	self.send("name=", value)
+	    else 
+	    self.send(("#{key}="), value)
+	  	end
+	  end
+	  @@all << self
 	end
 
 	def self.new_from_collection(genres_array)
@@ -24,5 +34,14 @@ class NYTBestsellers::Genre
 	def books
 	  @books
 	end
+
+	def self.find_by_name(genre_name)
+	  self.all.find {|x| x.name == genre_name}
+	end
+
+	# def self.find_by_num(num)
+	#   self.all
+	#   binding.pry
+ # 	end
 
 end

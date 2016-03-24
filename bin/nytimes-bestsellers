@@ -2,30 +2,4 @@
 
 require_relative '../lib/nytimes_bestsellers.rb'
 
-# [{:genre=>"HARDCOVER FICTION",
-#   :url=>"http://www.nytimes.com/best-sellers-books/2016-03-27/hardcover-fiction/list.html",
-#   :books=>
-#    ["OFF THE GRID",
-#     "FIRE TOUCHED",
-#     "ALL THE LIGHT WE CANNOT SEE",
-#     "THE GIRL ON THE TRAIN",
-#     "THE NIGHTINGALE"]},
-#  {:genre=>"HARDCOVER NONFICTION",
-#   :url=>"http://www.nytimes.com/best-sellers-books/2016-03-27/hardcover-nonfiction/list.html",
-#   :books=>
-#    ["WHEN BREATH BECOMES AIR",
-#     "BETWEEN THE WORLD AND ME",
-#     "DARK MONEY",
-#     "THE IMMORTAL IRISHMAN",
-#     "SEVEN BRIEF LESSONS ON PHYSICS"]},
-#  {:genre=>"PAPERBACK TRADE FICTION",
-#   :url=>"http://www.nytimes.com/best-sellers-books/2016-03-27/trade-fiction-paperback/list.html",
-#   :books=>["ME BEFORE YOU", "BROOKLYN", "ROOM", "THE REVENANT", "MY BRILLIANT FRIEND"]},
-#  {:genre=>"PAPERBACK NONFICTION",
-#   :url=>"http://www.nytimes.com/best-sellers-books/2016-03-27/paperback-nonfiction/list.html",
-#   :books=>
-#    ["ALEXANDER HAMILTON", "I AM MALALA", "THE BOYS IN THE BOAT", "H IS FOR HAWK", "MIRACLES FROM HEAVEN"]}]
-
 NYTBestsellers::CLI.new.call
-
-

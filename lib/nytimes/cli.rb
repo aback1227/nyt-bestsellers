@@ -2,7 +2,10 @@ class NYTBestsellers::CLI
 
 	def call 
 	  make_genres
-	  add_attributes_to_books
+	  make_books_with_attributes
+	  puts "Welcome to the New York Times Bestsellers List"
+	  puts "Here are the categories:"
+	  display_genres
 	end
 
 	def make_genres
@@ -10,16 +13,20 @@ class NYTBestsellers::CLI
 	  NYTBestsellers::Genre.new_from_collection(genres_array)
 	end
 
-	# def display_bestsellers
-	#   NYTBestsellers::Genre.all.each do |genre|
-	#   	puts "#{genre.book_title}"
-	#   end
-	# end
-
-	def add_attributes_to_books
+	def make_books_with_attributes
 	  attributes_array = NYTBestsellers::Scraper.scrape_book_attributes
-	  NYTBestsellers::Book.new_from_collection(attributes_array)
+	  NYTBestsellers::Book.new_book_attributes(attributes_array)
 	end
 
+	def display_genres
+	  NYTBestsellers::Genre.all.each_with_index do |genre, index|
+	    puts "#{index+1}. #{genre.name}"
+	  end
+	end
 
+	def books_genre
+	  NYTBestsellers::Book.all.each do |x|
+	  	x.genre
+	  end
+	end
 end
