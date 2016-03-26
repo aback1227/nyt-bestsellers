@@ -3,7 +3,7 @@ class NYTBestsellers::Scraper
 	def self.scrape_bestsellers_by_genre
 		array = Array.new
 		
-		doc = Nokogiri::HTML(open("http://www.nytimes.com/best-sellers-books/2016-03-27/overview.html"))
+		doc = Nokogiri::HTML(open("http://www.nytimes.com/best-sellers-books/"))
 
 		categories = doc.css(".bookCategory")
 		categories.each do |category|
@@ -27,7 +27,7 @@ class NYTBestsellers::Scraper
 
 	def self.scrape_book_attributes
 		array = Array.new
-		doc = Nokogiri::HTML(open("http://www.nytimes.com/best-sellers-books/2016-03-27/overview.html"))
+		doc = Nokogiri::HTML(open("http://www.nytimes.com/best-sellers-books/"))
 
 		categories = doc.css(".bookCategory")
 		categories.each do |category|
@@ -71,18 +71,22 @@ class NYTBestsellers::Scraper
 	array
 	end #scrape_book_attributes
 
-	def self.scrape_price_rating
-
-		books = Nokogiri::HTML(open("http://www.amazon.com/Books/b/ref=sv_b_3?ie=UTF8&node=549028")).css("div .s9OtherItems")
-		array = self.scrape_book_attributes
-		array.collect do |hash|
-			if books.css(".a-row a").attr("title").text.include?(hash[:title])
-				binding.pry
-				hash[:url] = "www.amazon.com#{book.css(".a-row a").attr("href").text}"
- 			end 
-		end
-	array
+	def self.scrape_current_date
+		doc = Nokogiri::HTML(open("http://www.nytimes.com/best-sellers-books/"))
+		current_date = doc.css(".element1 p").text
 	end
+	# def self.scrape_price_rating
+
+	# 	books = Nokogiri::HTML(open("http://www.amazon.com/Books/b/ref=sv_b_3?ie=UTF8&node=549028")).css("div .s9OtherItems")
+	# 	array = self.scrape_book_attributes
+	# 	array.collect do |hash|
+	# 		if books.css(".a-row a").attr("title").text.include?(hash[:title])
+	# 			binding.pry
+	# 			hash[:url] = "www.amazon.com#{book.css(".a-row a").attr("href").text}"
+ # 			end 
+	# 	end
+	# array
+	# end
 
 end	
 
