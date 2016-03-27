@@ -2,7 +2,6 @@ require 'pry'
 require 'nokogiri'
 require 'open-uri'
 require 'colorize'
-require 'rubygems'
 
 require_relative '../lib/nytimes/scraper'
 require_relative '../lib/nytimes/book'

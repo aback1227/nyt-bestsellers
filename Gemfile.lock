@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nytimes-bestsellers (0.0.0)
+    nyt-bestsellers (0.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -40,7 +40,7 @@ DEPENDENCIES
   bundler (~> 1.11)
   colorize
   nokogiri
-  nytimes-bestsellers!
+  nyt-bestsellers!
   pry
   rake (~> 10.0)
   rspec (~> 3.0)
