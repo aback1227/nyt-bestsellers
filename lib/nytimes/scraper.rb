@@ -25,7 +25,7 @@ class NYTBestsellers::Scraper
 
 	def self.scrape_book_attributes
 		array = Array.new
-
+		a = Array.new
 		NYTBestsellers::Genre.all.each do |genre|
 			doc = Nokogiri::HTML(open(genre.url))
 			details = doc.css(".bookDetails")
@@ -72,6 +72,7 @@ class NYTBestsellers::Scraper
 
 	def self.scrape_minor_genre_books
 		array = Array.new
+		a = Array.new
 		NYTBestsellers::OtherGenre.all.each do |genre|
 			doc = Nokogiri::HTML(open(genre.url))
 			details = doc.css(".bookDetails")
@@ -82,7 +83,7 @@ class NYTBestsellers::Scraper
 			    title = attribute.css(".bookName").text.split.collect(&:capitalize)
 				hash[:title] =  title.collect! {|x| x == title.last ? x.gsub(",", "") : x}.join(" ")
 
-				hash[:author] = attribute.css(".summary").text.match(/by.*\.\s\(\w/).to_s.gsub(/\.\s\(\w/, "")
+				hash[:author] = attribute.css(".summary").text.match(/by.*\.\s\(\w/).to_s.gsub(/\.\s\(\w/, "").gsub("by ", "")
 				hash[:publisher] = attribute.css(".summary").text.match(/\(.*\)/).to_s.gsub(/[(.)]/, "")
 				hash[:summary] = attribute.css(".summary").text.match(/\).*\./).to_s.gsub(") ", "")
 				hash[:wol] = attribute.css(".weeklyPosition").text
@@ -92,7 +93,5 @@ class NYTBestsellers::Scraper
 	    end
 	    array
 	end
-	
-end	
 
-         
+end	     
