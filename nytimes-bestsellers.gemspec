@@ -7,13 +7,14 @@ Gem::Specification.new do |spec|
   spec.name          = "nytimes-bestsellers"
   spec.date          = '2016-03-21'
   spec.version       = '0.0.0'
-  spec.authors       = "Amy Back"
+  spec.authors       = ["Amy Back"]
   spec.email         = "aback1227@gmail.com"
   spec.summary       = "Details New York Times bestsellers list"
   spec.homepage      = "https://github.com/aback1227/nytimes-bestsellers"
   spec.license       = "MIT"
-  spec.files         = ["lib/nytimes_bestsellers", "lib/nytimes/book", "lib/nytimes/cli", "lib/nytimes/scraper", "config/environment.rb"]
-  spec.executables   = "nytimes-bestsellers"
+  spec.files         = ["lib/nytimes_bestsellers", "lib/nytimes/book", "lib/nytimes/cli", "lib/nytimes/scraper", "config/environment.rb", "lib/nytimes/other_books", "lib/nytimes/other_genres"]
+  spec.executables   = ["nytimes-bestsellers"]
+  spec.require_paths = ["lib", "lib/nytimes"]
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
