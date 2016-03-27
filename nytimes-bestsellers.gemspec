@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "Details New York Times bestsellers list"
   spec.homepage      = "https://github.com/aback1227/nytimes-bestsellers"
   spec.license       = "MIT"
-  spec.files         = ["lib/nytimes_bestsellers", "lib/nytimes/book", "lib/nytimes/cli", "lib/nytimes/scraper", "config/environment.rb", "lib/nytimes/other_books", "lib/nytimes/other_genres"]
+  spec.files         = ["lib/nytimes_bestsellers", "lib/nytimes/book.rb", "lib/nytimes/cli.rb", "lib/nytimes/scraper.rb", "config/environment.rb", "lib/nytimes/other_books.rb", "lib/nytimes/other_genres.rb"]
   spec.executables   = ["nytimes-bestsellers"]
   spec.require_paths = ["lib", "lib/nytimes"]
 
@@ -20,6 +20,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "nokogiri", ">= 0"
-  spec.add_development_dependency "pry"
+  spec.add_development_dependency "pry", ">= 0"
   spec.add_development_dependency "colorize", ">= 0"
 end
