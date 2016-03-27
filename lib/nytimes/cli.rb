@@ -5,8 +5,11 @@ class NYTBestsellers::CLI
 	  make_books_with_attributes
 	  puts ""
 	  puts "Welcome to the New York Times Bestsellers List".blue.bold
+	  make_minor_genres
+	  make_minor_genre_attributes
 	  run
-	  # NYTBestsellers::Scraper.scrape_price_rating
+
+	  NYTBestsellers::Scraper.scrape_minor_genre_books
 	end
 
 	def run
@@ -21,23 +24,14 @@ class NYTBestsellers::CLI
 	  response = ""
 	  while response != "exit"
 
-		  puts "Select a category by number:" + "[back][exit]".light_red
-		  nums =* (1..5)
+		  puts "Select a category by number:" + "[exit]".light_red
+		  nums =* (1..4)
 		  response = gets.strip
 
 		  if nums.include?(response.to_i)
 		    display_category(response)
-		    # genre = NYTBestsellers::Genre.find_by_num(response.to_i)
-		    # if (name = genre.books[book_input.to_i-1]) == (book = NYTBestsellers::Book.find_by_title(name)).title
-		    # if nums.include?(book_input.to_i)
-		    #   display_book_info(response, book_input)
-		    # elsif book_input == "back"
-		    #   run
-		    # elsif book_input == "exit"
-		    #   exit
-		    # end
-		  elsif response == "back"
-		  	run
+		  elsif response.to_i == 5
+		  	display_minor_genres
 		  elsif response == "exit"
 		    puts "Goodbye!~".bold.red
 		    puts ""
@@ -58,9 +52,9 @@ class NYTBestsellers::CLI
 
 	def display_genres
 	  NYTBestsellers::Genre.all.each_with_index do |genre, index|
-	    puts "#{index+1} - #{genre.name}"
+	    puts "#{index+1} - #{genre.name}" 
 	  end
-	  puts "5 - More categories..."
+	  puts "5 - See More"
 	end
 
 	def display_category(response)
@@ -68,19 +62,25 @@ class NYTBestsellers::CLI
 	  puts ""
 	  puts "****----#{genre.name.upcase}----****".blue.bold
 	  puts ""
-	  puts " Rank^ |  Weeks on List  |  Title"
-	  puts "---------------------------------------------------------"
+	  puts "  Rank^    Weeks on List     Title"
+	  puts "  -----    -------------     -----"
 	  genre.books.each_with_index do |book, index|
-	  	x = NYTBestsellers::Book.find_by_title(book)
-	  	x.wol << " " if x.wol.length == 1  #adds spacing
-	    puts "   #{index+1}   |        #{x.wol}       | #{book}"      
+	  	wol_s = "         #{book.wol}       "
+	  	wol_s << " " if book.wol.length == 1  #adds spacing
+	  	wol_s = "         #{book.wol}      " if book.wol.length == 3 
+
+	  	rank_s = "   #{index+1}   "
+	  	rank_s << " " if (0..8).include?(index)
+
+	  	title_s = "   #{book.title}"
+	    puts rank_s + wol_s + title_s  
 	  end
 	  puts ""
 	  puts "^ refers to the current position on the bestseller's list"
 	  puts ""
 	  puts "Select a book by rank number to get more info:" + "[back][exit]".light_red
 	  puts ""
-	  nums =* (1..5)
+	  nums =* (1..16)
 	  book_input = gets.strip 
 	  puts ""
 	  if nums.include?(book_input.to_i)
@@ -96,33 +96,70 @@ class NYTBestsellers::CLI
 
 	def display_book_info(response, book_input)
 		genre = NYTBestsellers::Genre.find_by_num(response.to_i)
-		if (name = genre.books[book_input.to_i-1]) == (book = NYTBestsellers::Book.find_by_title(name)).title
-			puts "****----#{book.title}----****".blue.bold
-			puts ""
-			puts "Weeks On Bestseller:".bold + " #{book.wol}"
-			puts "Author:".bold + " #{book.author}"
-			puts "Publisher:".bold + " #{book.publisher}"
-			puts "Genre:".bold + " #{book.genre.name}"
-			puts ""
-			puts "---------Summary---------".bold
-			puts "#{book.summary}"
-			puts ""
-			puts "[back][menu][exit]".light_red
-			puts ""
-			input = gets.strip
-			puts ""
-			if input == "back"
-			   display_category(response)
-			elsif input == "exit"
-				puts "Goodbye!~".bold.red
-		        puts ""
-				exit
-			elsif input == "menu"
-				run
+		genre.books.each_with_index do |book, index|
+			if book_input.to_i == index+1
+				puts "****----#{book.title}----****".blue.bold
 				puts ""
+				puts "Weeks On Bestseller:".bold + " #{book.wol}"
+				puts "Author:".bold + " #{book.author}"
+				puts "Publisher:".bold + " #{book.publisher}"
+				puts "Genre:".bold + " #{book.genre.name}"
+				puts ""
+				puts "---------Summary---------".bold
+				puts "#{book.summary}"
+				puts ""
+				puts "[back][menu][exit]".light_red
+				puts ""
+				input = gets.strip
+			    puts ""
+			    if input == "back"
+			       display_category(response)
+			    elsif input == "exit"
+				   puts "Goodbye!~".bold.red
+		           puts ""
+				   exit
+			    elsif input == "menu"
+				   run
+				   puts ""
+			    end
 			end
-		end
+		end 
+	end
 
+	def make_minor_genres
+	  genres_array = NYTBestsellers::Scraper.scrape_minor_genres
+	  NYTBestsellers::OtherGenre.new_from_collection(genres_array)
+	end
+
+	def make_minor_genre_attributes
+	  attributes_array = NYTBestsellers::Scraper.scrape_minor_genre_books
+	  NYTBestsellers::OtherBook.new_book_attributes(attributes_array)
+	end
+
+	def display_minor_genres
+		puts ""
+		puts "****----Additonal Categories----****".bold.blue
+		puts ""
+		NYTBestsellers::OtherGenre.all.each_with_index do |genre, index|
+		  puts ""
+	      puts "---#{genre.name}---".bold.green
+	      puts ""
+	      puts "Rank    Title"
+	      puts "----    -----"
+	      genre.books.each_with_index do |book, index|
+	      	puts "  #{index+1}     " + "#{book.title}".light_blue + " #{book.author}"
+	      end
+	    end 
+	    puts ""
+	    puts "[back][exit]".light_red
+	    input = gets.strip
+	      if input == "back"
+	      	run
+	      elsif input == "exit"
+	      	puts "Goodbye!~".bold.red
+		    puts ""
+			exit
+		  end
 	end
 
 end

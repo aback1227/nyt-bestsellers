@@ -34,5 +34,10 @@ class NYTBestsellers::Book
 	  	end
 	  end
 	end
+
+	def genre=(genre)
+		@genre = genre
+		genre.books << self unless genre.books.include?(self)
+	end
 	
 end

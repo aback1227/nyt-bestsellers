@@ -1,16 +1,16 @@
-class NYTBestsellers::Genre
+class NYTBestsellers::OtherGenre 
 
 	attr_accessor :name, :url
 
 	@@all = []
 
 	def initialize(genres_hash)
-	  genres_hash.each do |key, value| 
+	  genres_hash.each do |key, value|  
 	  	if key == :genre
 	  	  self.send("name=", value)
-	    else 
+	    else
 	      self.send(("#{key}="), value)
-	  	end
+	    end
 	  end
 	  @@all << self
 	  @books = []
