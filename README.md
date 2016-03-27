@@ -4,11 +4,11 @@ View the New York Times bestsellers list with additional information.
 
 ## Installation
 
-Install this gem via `$ gem install nytimes-bestsellers`. Run the `nytimes-bestsellers` CLI to view the NYT bestsellers list.
+Install this gem via `$ gem install nyt-bestsellers`. Run the `nyt-bestsellers` CLI to view the NYT bestsellers list.
 
 ## Usage
 
-Run: `nytimes-bestsellers` after install.
+Run: `nyt-bestsellers` after install.
 
 ## Development
 

@@ -9,9 +9,11 @@ Gem::Specification.new do |spec|
   spec.version       = '0.0.0'
   spec.authors       = ["Amy Back"]
   spec.email         = "aback1227@gmail.com"
-  spec.summary       = "Details New York Times bestsellers list"
+  spec.description   = "New York Times Bestsellers List"
+  spec.summary       = "Lists books by genre from the NYT Bestsellers List"
   spec.homepage      = "https://github.com/aback1227/nyt-bestsellers"
   spec.license       = "MIT"
+
   spec.files         = ["lib/nyt_bestsellers.rb", "lib/nytimes/book.rb", "lib/nytimes/cli.rb", "lib/nytimes/scraper.rb", "config/environment.rb", "lib/nytimes/other_books.rb", "lib/nytimes/other_genres.rb"]
   spec.executables   = ["nyt-bestsellers"]
   spec.require_paths = ["lib", "lib/nytimes"]
@@ -19,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "nokogiri", ">= 0"
-  spec.add_development_dependency "pry", ">= 0"
-  spec.add_development_dependency "colorize", ">= 0"
+  spec.add_development_dependency "nokogiri"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "colorize"
 end
