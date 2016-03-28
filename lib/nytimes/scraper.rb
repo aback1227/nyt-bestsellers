@@ -87,7 +87,6 @@ class NYTBestsellers::Scraper
 				hash[:publisher] = attribute.css(".summary").text.match(/\(.*\)/).to_s.gsub(/[(.)]/, "")
 				hash[:summary] = attribute.css(".summary").text.match(/\).*\./).to_s.gsub(") ", "")
 				hash[:wol] = attribute.css(".weeklyPosition").text
-				# hash[:amazon] = attribute.css(".bestsellersSellersList li a")#.attr("href")
 				array << hash
 			end
 	    end

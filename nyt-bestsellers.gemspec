@@ -6,7 +6,7 @@ require 'nytimes/version'
 Gem::Specification.new do |spec|
   spec.name          = "nyt-bestsellers"
   spec.date          = '2016-03-21'
-  spec.version       = '0.0.0'
+  spec.version       = '0.1.1'
   spec.authors       = ["Amy Back"]
   spec.email         = "aback1227@gmail.com"
   spec.description   = "New York Times Bestsellers List"
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/aback1227/nyt-bestsellers"
   spec.license       = "MIT"
 
-  spec.files         = ["lib/nyt_bestsellers.rb", "lib/nytimes/book.rb", "lib/nytimes/cli.rb", "lib/nytimes/scraper.rb", "config/environment.rb", "lib/nytimes/other_books.rb", "lib/nytimes/other_genres.rb"]
+  spec.files         = ["lib/nyt_bestsellers.rb", "lib/nytimes/book.rb", "lib/nytimes/cli.rb", "lib/nytimes/scraper.rb", "config/environment.rb", "lib/nytimes/other_books.rb", "lib/nytimes/other_genres.rb", "lib/nytimes/genre.rb"]
   spec.executables   = ["nyt-bestsellers"]
   spec.require_paths = ["lib", "lib/nytimes"]
 
