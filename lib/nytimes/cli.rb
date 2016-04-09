@@ -38,7 +38,7 @@ class NYTBestsellers::CLI
 		  	while answer != "exit"
 		  		puts "Select a category by number:" + "[back][exit]".light_red
 		  		answer = gets.strip
-		  		if (1..10).to_a.include?(answer.to_i)
+		  		if response.to_i <= minor_genres_count
 		  	  		display_category(answer, minor_genres)
 		  		elsif answer == "back"
 		  	  		run
@@ -62,6 +62,10 @@ class NYTBestsellers::CLI
 
 	def minor_genres
 	  NYTBestsellers::OtherGenre 
+	end
+
+	def minor_genres_count
+		NYTBestsellers::OtherGenre.all.count
 	end
 
 	def make_genres(scraper, genre_class)

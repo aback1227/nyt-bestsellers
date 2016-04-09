@@ -6,7 +6,7 @@ require 'nytimes/version'
 Gem::Specification.new do |spec|
   spec.name          = "nyt-bestsellers"
   spec.date          = '2016-03-21'
-  spec.version       = '0.1.1'
+  spec.version       = '0.1.2'
   spec.authors       = ["Amy Back"]
   spec.email         = "aback1227@gmail.com"
   spec.description   = "New York Times Bestsellers List"
