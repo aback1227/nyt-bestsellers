@@ -15,7 +15,7 @@ class NYTBestsellers::CLI
 	  puts ""
 	  puts "NYT Bestsellers - Week of #{NYTBestsellers::Scraper.scrape_current_date}".bold.blue
 	  puts ""
-      puts "Here are the top categories:"
+    puts "Here are the top categories:"
 	  puts ""
 	  display_genres(major_genres)
 	  puts "5 - See More"
@@ -23,37 +23,19 @@ class NYTBestsellers::CLI
 	  response = ""
 	  while response != "exit"
 
-	  	puts "Select a category by number:" + "[exit]".light_red
+	  puts "Select a category by number:" + "[exit]".light_red
 		response = gets.strip
 
 		if (1..4).to_a.include?(response.to_i)
 			display_category(response, major_genres)
 		elsif response.to_i == 5
-		  	puts ""
-		  	puts "****----Additional Categories----****".bold.blue
-		  	puts ""
-		  	display_genres(minor_genres)
-		  	puts ""
-		  	answer = ""
-		  	while answer != "exit"
-		  		puts "Select a category by number:" + "[back][exit]".light_red
-		  		answer = gets.strip
-		  		if response.to_i <= minor_genres_count
-		  	  		display_category(answer, minor_genres)
-		  		elsif answer == "back"
-		  	  		run
-		  	  	elsif answer == "exit"
-		  	  		puts "Goodbye!~".bold.red
-		    		puts ""
-		    		exit
-		  		end
-		  	end
+			display_minor_genres
 		elsif response == "exit"
 			puts "Goodbye!~".bold.red
-		    puts ""
-		    exit
+	    puts ""
+	    exit
 		end
-      end
+    end
 	end
 
 	def major_genres
@@ -84,6 +66,28 @@ class NYTBestsellers::CLI
 	  end
 	end
 
+	def display_minor_genres
+		puts ""
+  	puts "****----Additional Categories----****".bold.blue
+  	puts ""
+  	display_genres(minor_genres)
+  	puts ""
+  	answer = ""
+  	while answer != "exit"
+  		puts "Select a category by number:" + "[back][exit]".light_red
+  		answer = gets.strip
+  		if answer == "back"
+  	  	run
+	  	elsif answer == "exit"
+	  		puts "Goodbye!~".bold.red
+  		  puts ""
+  		  exit
+  		elsif answer.to_i <= minor_genres_count
+  	  	display_category(answer, minor_genres)
+  		end
+  	end
+	end
+
 	def display_category(response, genre_class)
 	  genre = genre_class.find_by_num(response.to_i)
 	  puts ""
@@ -106,12 +110,14 @@ class NYTBestsellers::CLI
 	  book_input = gets.strip 
 	  puts ""
 	  display_book_info(response, book_input, genre_class)
-	  if book_input == "back"
-	    run
+	  if book_input == "back" && genre_class == major_genres
+	  	run
+	  elsif book_input == "back" && genre_class == minor_genres
+	  	display_minor_genres
 	  elsif book_input == "exit"
 	  	puts "Goodbye!~".bold.red
-		puts ""
-		exit
+		  puts ""
+		  exit
 	  end
 	end
 
