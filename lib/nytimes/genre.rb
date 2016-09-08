@@ -4,23 +4,30 @@ class NYTBestsellers::Genre
 
   @@all = []
 
-  def initialize(genres_hash)
-    genres_hash.each do |key, value| 
-      if key == :genre
-        self.send("name=", value)
-      else 
-        self.send(("#{key}="), value)
-      end
-    end
+  def initialize(name=nil, url=nil)
+    @name = name
+    @url = url
     @@all << self
     @books = []
   end
 
-  def self.new_from_collection(genres_array)
-    genres_array.each do |genres_hash|
-      self.new(genres_hash)
-    end
-  end
+  # def initialize(genres_hash)
+  #   genres_hash.each do |key, value| 
+  #     if key == :genre
+  #       self.send("name=", value)
+  #     else 
+  #       self.send(("#{key}="), value)
+  #     end
+  #   end
+  #   @@all << self
+  #   @books = []
+  # end
+
+  # def self.new_from_collection(genres_array)
+  #   genres_array.each do |genres_hash|
+  #     self.new(genres_hash)
+  #   end
+  # end
 
   def self.all 
     @@all
