@@ -8,7 +8,6 @@ class NYTBestsellers::Genre
     @name = name
     @url = url
     @@all << self
-    @books = []
   end
 
   # def initialize(genres_hash)
