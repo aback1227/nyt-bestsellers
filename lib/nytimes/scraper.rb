@@ -44,10 +44,9 @@ class NYTBestsellers::Scraper
 
   def self.run
     NYTBestsellers::Book.all.each do |book|
-      puts "1. #{book.title}"
+      puts "1. #{book.title} #{book.genre}"
     end
-
-
+    binding.pry
   end
 
 
