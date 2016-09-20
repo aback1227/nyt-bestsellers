@@ -14,13 +14,14 @@ class NYTBestsellers::CLI
     puts "NYT Bestsellers - Week of #{NYTBestsellers::Scraper.get_date}".bold.blue
     puts "(Lists are published early online.)".bold.blue
     puts ""
-    puts "Here are the top categories:"
+    puts "Here are the categories:"
     puts ""
     display_genres
+    puts ""
 
     response = ""
     while response != "exit"
-      puts "Select a category by number:" + "[exit]".light_red
+      puts "Select a category by number: " + "[exit]".light_red
       response = gets.strip
       if (1..5).to_a.include?(response.to_i)
         genre_books(response.to_i)
@@ -45,37 +46,34 @@ class NYTBestsellers::CLI
     puts ""
     puts "  Rank^     Title"
     puts "  -----     -----"
-    
     genre.books.each_with_index do |book, index|
-      rank_s = "   #{index+1}   "
-      rank_s << " " if (0..8).include?(index)
+      rank = "   #{index+1}   "
+      rank << " " if (0..8).include?(index)
 
-      title_s = "    #{book.title}"
-      puts rank_s + title_s  
+      title = "    #{book.title}"
+      puts rank + title
     end
 
-    # puts ""
-    # puts "^ refers to the current position on the bestseller's list"
-    # puts ""
-    # puts "Select a book by rank number to get more info:" + "[back][exit]".light_red
-    # puts ""
-    # book_input = gets.strip 
-    # puts ""
-    # display_book_info(response, book_input, genre_class)
+    puts ""
+    puts "(^refers to the current position on the bestseller's list)"
+    puts ""
+    puts "Select a book by rank number to get more info: " + "[back][exit]".light_red
+    puts ""
 
-    # if book_input == "back" && genre_class == major_genres
-    #   run
-    # elsif book_input == "back" && genre_class == minor_genres
-    #   display_minor_genres
-    # elsif book_input == "exit"
-    #   puts "Goodbye!~".bold.red
-    #   puts ""
-    #   exit
-    # end
+    book_input = gets.strip 
+    puts ""
+    display_book_info(response, book_input)
+    if book_input == "back"
+      run
+    elsif book_input == "exit"
+      puts "Goodbye!~".bold.red
+      puts ""
+      exit
+    end
   end
 
-  def display_book_info(response, book_input, genre_class)
-    genre = genre_class.find_by_num(response.to_i)
+  def display_book_info(response, book_input)
+    genre = NYTBestsellers::Genre.find_by_num(response)
 
     genre.books.each_with_index do |book, index|
       if book_input.to_i == index+1
@@ -95,7 +93,7 @@ class NYTBestsellers::CLI
         puts ""
 
         if input == "back"
-          display_category(response, genre_class)
+          genre_books(response)
         elsif input == "exit"
           puts "Goodbye!~".bold.red
           puts ""
