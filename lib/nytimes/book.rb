@@ -6,7 +6,7 @@ class NYTBestsellers::Book
 
   def initialize(genre=nil, title=nil, author=nil, publisher=nil, wol=nil, summary=nil)
     @genre = NYTBestsellers::Genre.find_by_name(genre)
-    @genre.books << self unless @genre.books.include?(self)
+    @genre.books << self if !wol.empty? || !summary.empty?
     @title = title
     @author = author
     @publisher = publisher
