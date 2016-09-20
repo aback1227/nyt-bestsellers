@@ -6,7 +6,7 @@ class NYTBestsellers::Scraper
   end
 
   def self.scrape_genres
-    self.get_page.css("section.subcategory")
+    get_page.css("section.subcategory")
   end
 
   def self.make_genres
@@ -40,6 +40,10 @@ class NYTBestsellers::Scraper
           )
       end
     end
+  end
+
+  def self.get_date
+    get_page.css("div.date-range").text.strip
   end
   
 end      

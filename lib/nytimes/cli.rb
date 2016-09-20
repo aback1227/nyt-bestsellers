@@ -1,13 +1,13 @@
 class NYTBestsellers::CLI
 
   def call 
-    make_genres(NYTBestsellers::Scraper.scrape_bestsellers_by_genre, major_genres)
-    make_books_with_attributes(NYTBestsellers::Scraper.scrape_book_attributes, NYTBestsellers::Book)
-    make_genres(NYTBestsellers::Scraper.scrape_minor_genres, minor_genres)
-    make_books_with_attributes(NYTBestsellers::Scraper.scrape_minor_genre_books, NYTBestsellers::OtherBook)
+    NYTBestsellers::Scraper.make_genres
+    NYTBestsellers::Scraper.make_books
     puts ""
     puts "Welcome to the New York Times Bestsellers List".blue.bold
-    run
+    NYTBestsellers::Scraper.get_date
+    # run
+
   end
 
   def run
@@ -36,28 +36,6 @@ class NYTBestsellers::CLI
         exit
       end
     end
-  end
-
-  def major_genres
-    NYTBestsellers::Genre
-  end
-
-  def minor_genres
-    NYTBestsellers::OtherGenre 
-  end
-
-  def minor_genres_count
-    NYTBestsellers::OtherGenre.all.count
-  end
-
-  def make_genres(scraper, genre_class)
-    genres_array = scraper
-    genre_class.new_from_collection(genres_array)
-  end
-
-  def make_books_with_attributes(scraper, book_class)
-    attributes_array = scraper
-    book_class.new_book_attributes(attributes_array)
   end
 
   def display_genres(genre_class)

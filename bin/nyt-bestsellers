@@ -2,7 +2,4 @@
 
 require_relative '../lib/nyt_bestsellers.rb'
 
-# NYTBestsellers::CLI.new.call
-NYTBestsellers::Scraper.make_genres
-NYTBestsellers::Scraper.make_books
-NYTBestsellers::Scraper.run
+NYTBestsellers::CLI.new.call

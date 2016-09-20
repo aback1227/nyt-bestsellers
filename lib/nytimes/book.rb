@@ -19,12 +19,12 @@ class NYTBestsellers::Book
     @@all
   end
 
-  # def self.find_by_title(name)
-  #   self.all.find do |book| 
-  #     if name == book.title
-  #       book
-  #     end
-  #   end
-  # end
+  def self.find_by_title(name)
+    self.all.find do |book| 
+      if name == book.title
+        book
+      end
+    end
+  end
   
 end
