@@ -89,9 +89,9 @@ class NYTBestsellers::CLI
         puts ""
         puts "[back][menu][exit]".light_red
         puts ""
+
         input = gets.strip
         puts ""
-
         if input == "back"
           genre_books(response)
         elsif input == "exit"
