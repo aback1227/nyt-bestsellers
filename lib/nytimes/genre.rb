@@ -1,12 +1,13 @@
-class Genre
+class NYTBestsellers::Genre
 
   attr_accessor :name, :url
 
   @@all = []
 
-  def initialize(name=nil, url=nil)
-    @name = name
-    @url = url
+  def initialize(hash = {})
+    hash.each do |key, value|
+      self.send("#{key}=", value)
+    end  
     @@all << self
     @books = []
   end

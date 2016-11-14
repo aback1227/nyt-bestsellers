@@ -1,4 +1,4 @@
 module NYTBestsellers
 end
 
-require_relative '../config/environment'
+require 'environment'

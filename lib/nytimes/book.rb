@@ -1,18 +1,18 @@
-class Book
+class NYTBestsellers::Book
 
   attr_accessor :genre, :title, :author, :publisher, :wol, :summary
 
   @@all = []
 
-  def initialize(genre=nil, title=nil, author=nil, publisher=nil, wol=nil, summary=nil)
-    @genre = Genre.find_by_name(genre)
-    @genre.books << self if !wol.empty? || !summary.empty?
-    @title = title
-    @author = author
-    @publisher = publisher
-    @wol = wol
-    @summary = summary
-    @@all << self if !wol.empty? || !summary.empty?
+  def initialize(hash = {})
+    hash.each do |key, value|
+      self.send("#{key}=", value)
+    end
+    @genre = NYTBestsellers::Genre.find_by_name(hash[:genre])
+    if !wol.empty? || !summary.empty?
+      @genre.books << self 
+      @@all << self
+    end
   end
 
   def self.all
@@ -25,6 +25,5 @@ class Book
         book
       end
     end
-  end
-  
+  end 
 end
