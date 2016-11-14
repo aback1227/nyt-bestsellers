@@ -23,7 +23,7 @@ class NYTBestsellers::CLI
     while response != "exit"
       puts "Select a category by number: " + "[exit]".light_red
       response = gets.strip
-      if (1..5).to_a.include?(response.to_i)
+      if (1..genre_count).to_a.include?(response.to_i)
         genre_books(response.to_i)
       elsif response == "exit"
         puts "Goodbye!~".bold.red
@@ -31,6 +31,10 @@ class NYTBestsellers::CLI
         exit
       end
     end
+  end
+
+  def genre_count
+    NYTBestsellers::Genre.all.count
   end
 
   def display_genres
