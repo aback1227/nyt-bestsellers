@@ -21,7 +21,7 @@ class NYTBestsellers::CLI
 
     response = ""
     while response != "exit"
-      puts "Select a category by number: " + "[exit]".light_red
+      puts "Select a category by number or type " + "'exit'".light_red + " to close the CLI."
       response = gets.strip
       if (1..genre_count).to_a.include?(response.to_i)
         genre_books(response.to_i)
@@ -61,18 +61,22 @@ class NYTBestsellers::CLI
     puts ""
     puts "(^refers to the current position on the bestseller's list)"
     puts ""
-    puts "Select a book by rank number to get more info: " + "[back][exit]".light_red
-    puts ""
 
-    book_input = gets.strip 
-    puts ""
-    display_book_info(response, book_input)
-    if book_input == "back"
-      run
-    elsif book_input == "exit"
-      puts "Goodbye!~".bold.red
+    book_input = ""
+    while book_input != "exit"
+      puts "Select a book by rank number to get more info." 
+      puts "You may type" + " 'back'".light_red + " to return to the categories or " + "'exit'".light_red + " to close the CLI."
+      book_input = gets.strip 
       puts ""
-      exit
+      if (1..genre.books.count).include?(book_input.to_i)
+        display_book_info(response, book_input)
+      elsif book_input == "back"
+        run
+      elsif book_input == "exit"
+        puts "Goodbye!~".bold.red
+        puts ""
+        exit
+      end
     end
   end
 
@@ -91,23 +95,24 @@ class NYTBestsellers::CLI
         puts "---------Summary---------".bold
         puts "#{book.summary}"
         puts ""
-        puts "[back][menu][exit]".light_red
-        puts ""
 
-        input = gets.strip
-        puts ""
-        if input == "back"
-          genre_books(response)
-        elsif input == "exit"
-          puts "Goodbye!~".bold.red
+        input = ""
+        while input != "exit"
+          puts "Type" + " 'back'".light_red + "," + " 'menu',".light_red + " or" + " 'exit'".light_red + "."
+          input = gets.strip
           puts ""
-          exit
-        elsif input == "menu"
-          run
-          puts ""
-        end #second if
+          if input == "back"
+            genre_books(response)
+          elsif input == "menu"
+            run
+            puts ""
+          elsif input == "exit"
+            puts "Goodbye!~".bold.red
+            puts ""
+            exit
+          end #second if
+        end
       end #first if
     end #each
   end
-
 end
