@@ -1,11 +1,11 @@
-class NYTBestsellers::Book
+class Book
 
   attr_accessor :genre, :title, :author, :publisher, :wol, :summary
 
   @@all = []
 
   def initialize(genre=nil, title=nil, author=nil, publisher=nil, wol=nil, summary=nil)
-    @genre = NYTBestsellers::Genre.find_by_name(genre)
+    @genre = Genre.find_by_name(genre)
     @genre.books << self if !wol.empty? || !summary.empty?
     @title = title
     @author = author

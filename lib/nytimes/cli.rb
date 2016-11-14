@@ -1,8 +1,8 @@
-class NYTBestsellers::CLI
+class CLI
 
   def call 
-    NYTBestsellers::Scraper.make_genres
-    NYTBestsellers::Scraper.make_books
+    Scraper.make_genres
+    Scraper.make_books
     puts ""
     puts "Welcome to the New York Times Bestsellers List".blue.bold
     run
@@ -11,7 +11,7 @@ class NYTBestsellers::CLI
   def run
     puts "-------------------"
     puts ""
-    puts "NYT Bestsellers - Week of #{NYTBestsellers::Scraper.get_date}".bold.blue
+    puts "NYT Bestsellers - Week of #{Scraper.get_date}".bold.blue
     puts "(Lists are published early online.)".bold.blue
     puts ""
     puts "Here are the categories:"
@@ -34,17 +34,17 @@ class NYTBestsellers::CLI
   end
 
   def genre_count
-    NYTBestsellers::Genre.all.count
+    Genre.all.count
   end
 
   def display_genres
-    NYTBestsellers::Genre.all.each_with_index do |genre, index|
+    Genre.all.each_with_index do |genre, index|
       puts "#{index+1} - #{genre.name}" 
     end
   end
 
   def genre_books(response)
-    genre = NYTBestsellers::Genre.find_by_num(response)
+    genre = Genre.find_by_num(response)
     puts ""
     puts "****----#{genre.name.upcase}----****".blue.bold
     puts ""
@@ -81,7 +81,7 @@ class NYTBestsellers::CLI
   end
 
   def display_book_info(response, book_input)
-    genre = NYTBestsellers::Genre.find_by_num(response)
+    genre = Genre.find_by_num(response)
 
     genre.books.each_with_index do |book, index|
       if book_input.to_i == index+1

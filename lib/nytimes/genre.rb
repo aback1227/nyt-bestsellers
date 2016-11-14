@@ -1,4 +1,4 @@
-class NYTBestsellers::Genre
+class Genre
 
   attr_accessor :name, :url
 

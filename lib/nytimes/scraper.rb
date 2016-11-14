@@ -1,4 +1,4 @@
-class NYTBestsellers::Scraper
+class Scraper
 
   def self.get_page
     agent = Mechanize.new
@@ -11,7 +11,7 @@ class NYTBestsellers::Scraper
 
   def self.make_genres
     scrape_genres.each do |category|
-      NYTBestsellers::Genre.new(
+      Genre.new(
         category.css("a.subcategory-heading-link").text.strip,
         "http://www.nytimes.com#{category.css("a").attr("href").text}"
         )
@@ -20,7 +20,7 @@ class NYTBestsellers::Scraper
 
   def self.get_genre_pages
     agent = Mechanize.new
-    NYTBestsellers::Genre.all.collect do |genre|
+    Genre.all.collect do |genre|
       page = agent.get("#{genre.url}")
     end
   end
@@ -30,7 +30,7 @@ class NYTBestsellers::Scraper
       books = page.css("div.book-body")
 
       books.each do |book|
-        NYTBestsellers::Book.new(
+        Book.new(
           page.css("h1").text.split(/\s-\s/)[0].strip, #genre
           book.css("h2.title").text.split.collect(&:capitalize).join(" "),
           book.css("p.author").text.split.delete_if{|x| x == "by"}.join(" "),
@@ -44,6 +44,5 @@ class NYTBestsellers::Scraper
 
   def self.get_date
     get_page.css("div.date-range").text.strip
-  end
-  
+  end  
 end      
