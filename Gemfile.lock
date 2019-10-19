@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nyt-bestsellers (0.0.2)
+    nyt-bestsellers (0.0.5)
 
 GEM
   remote: https://rubygems.org/
@@ -9,31 +9,15 @@ GEM
     coderay (1.1.1)
     colorize (0.8.1)
     diff-lcs (1.2.5)
-    domain_name (0.5.20160826)
-      unf (>= 0.0.5, < 1.0.0)
-    http-cookie (1.0.2)
-      domain_name (~> 0.5)
-    mechanize (2.7.5)
-      domain_name (~> 0.5, >= 0.5.1)
-      http-cookie (~> 1.0)
-      mime-types (>= 1.17.2)
-      net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (~> 2.5, >= 2.5.2)
-      nokogiri (~> 1.6)
-      ntlm-http (~> 0.1, >= 0.1.1)
-      webrobots (>= 0.0.9, < 0.2)
+    hoe (3.18.1)
+      rake (>= 0.8, < 13.0)
+    mechanize (0.9.3)
+      hoe (>= 1.12.2)
+      nokogiri (>= 1.2.1)
     method_source (0.8.2)
-    mime-types (3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
-    mini_portile2 (2.1.0)
-    net-http-digest_auth (1.4)
-    net-http-persistent (2.9.4)
-    nokogiri (1.6.8)
-      mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
-    ntlm-http (0.1.1)
-    pkg-config (1.1.7)
+    mini_portile2 (2.4.0)
+    nokogiri (1.10.4)
+      mini_portile2 (~> 2.4.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -53,21 +37,17 @@ GEM
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
     slop (3.6.0)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.7.2)
-    webrobots (0.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bundler (~> 1.11)
-  colorize
-  mechanize
-  nokogiri
+  colorize (~> 0)
+  mechanize (~> 0)
+  nokogiri (~> 1)
   nyt-bestsellers!
-  pry
+  pry (~> 0)
   rake (~> 10.0)
   rspec (~> 3.0)
 
