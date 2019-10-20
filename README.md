@@ -1,6 +1,8 @@
 ## NYT Bestsellers
 
-View the New York Times bestsellers list with additional information.
+Fetch and display the New York Times bestsellers in a CLI.
+
+![](demo.gif)
 
 ## Installation
 
