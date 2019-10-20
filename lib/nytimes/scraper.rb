@@ -5,9 +5,9 @@ module NYTBestsellers
     end
 
     def self.make_genres
-      get_page.css("section.subcategory").each do |category|
+      get_page.css("section h2").each do |category|
         NYTBestsellers::Genre.new({
-          name: category.css("a.subcategory-heading-link").text.strip, 
+          name: category.css("a").text.strip, 
           url: "http://www.nytimes.com#{category.css("a").attr("href").text}"
         })
       end
@@ -22,17 +22,20 @@ module NYTBestsellers
 
     def self.make_books
       get_genre_pages.each do |page|
-        books = page.css("div.book-body")
+        book_genre = page.css("section h2")[0].text
+        books = page.css("ol")[0].css("li article a")
 
         books.each do |book|
-          NYTBestsellers::Book.new({
-            genre: page.css("h1").text.split(/\s-\s/)[0].strip, #genre
-            title: book.css("h2.title").text.split.collect(&:capitalize).join(" "),
-            author: book.css("p.author").text.split.delete_if{|x| x == "by"}.join(" "),
-            publisher: book.css("p.publisher").text,
-            wol: book.css("p.freshness").text,
-            summary: book.css("p.description").text
-          })
+          if book.css("p")[1] != nil && book.css("p")[1].attribute("itemprop").value == "author"
+            NYTBestsellers::Book.new({
+              genre: book_genre,
+              title: book.css("h3").text.split.collect(&:capitalize).join(" "),
+              author: book.css("p")[1].text.split.delete_if{|x| x == "by"}.join(" "),
+              publisher: book.css("p")[2].text,
+              wol: book.css("p")[0].text,
+              summary: book.css("p")[3].text
+            })
+          end
         end
       end
     end
